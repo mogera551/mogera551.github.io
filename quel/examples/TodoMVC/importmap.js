@@ -11,4 +11,4 @@ async function loadImportMap() {
   document.head.appendChild(script);
 }
 
-await loadImportMap();
+loadImportMap();
