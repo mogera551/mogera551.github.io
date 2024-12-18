@@ -1,7 +1,4 @@
 
-//import importmap from "./importmap.json" with {type: 'json'};
-
-//const importmap = await import("./importmap.json", { with: { type: "json" } });
 const importmap = {
   "imports": {
     "@quel":     "https://cdn.jsdelivr.net/gh/mogera551/quel@latest/dist/quel.min.js",
@@ -10,11 +7,7 @@ const importmap = {
   }
 };
 
-function loadImportMap() {
-  const script = document.createElement("script");
-  script.type = "importmap";
-  script.textContent = JSON.stringify(importmap);
-  document.head.appendChild(script);
-}
-
-loadImportMap();
+const script = document.createElement("script");
+script.type = "importmap";
+script.textContent = JSON.stringify(importmap);
+document.head.appendChild(script);
