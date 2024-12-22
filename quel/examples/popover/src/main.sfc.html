@@ -28,12 +28,13 @@ export class State {
       <tr>
         <td>{{ fruits.*.name }}</td>
         <td>{{ fruits.*.price }}</td>
-        <td><button>Detail</button></td>
+        <td><button popovertarget="detail">Detail</button></td>
       </tr>
     {{ endloop: }}
 </table>
 
-<myapp-detail></myapp-detail>
+<myapp-detail id="detail" data-bind="props.name: fruits.*.name; 
+                                     props.price:fruitrs.*.price;" popover></myapp-detail>
 
 <style>
 </style>

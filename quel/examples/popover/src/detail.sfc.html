@@ -2,11 +2,8 @@
 export class State {
   name;
   price;
-  save() {
-
-  }
-  cancel() {
-
+  close() {
+    this.$component.element.hidePopover();
   }
 }
 </script>
@@ -29,7 +26,6 @@ export class State {
     </tbody>
   </table>
   <div>
-    <button>Save</button>
-    <button>Cancel</button>
+    <button data-bind="close">Close</button>
   </div>
 </main>

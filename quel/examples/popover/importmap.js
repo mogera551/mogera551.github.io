@@ -2,7 +2,8 @@
 const importmap = {
   "imports": {
     "@quel":     "https://cdn.jsdelivr.net/gh/mogera551/quel@latest/dist/quel.min.js",
-    "@app/main": "./src/main.sfc.html",
+    "@app/main":   "./src/main.sfc.html",
+    "@app/detail": "./src/detail.sfc.html",
   }
 };
 
