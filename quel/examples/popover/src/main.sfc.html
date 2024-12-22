@@ -1,0 +1,39 @@
+<script type="module">
+export class State {
+  fruits = [
+    { name: 'Apple', price: 100 },
+    { name: 'Banana', price: 200 },
+    { name: 'Cherry', price: 300 },
+  ]
+  
+}
+
+</script>
+
+<table>
+  <colgroup>
+    <col style="width: 100px;">
+    <col style="width: 100px;">
+    <col style="width: 100px;">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>price</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{ loop:fruits }}
+      <tr>
+        <td>{{ fruits.*.name }}</td>
+        <td>{{ fruits.*.price }}</td>
+        <td><button>Detail</button></td>
+      </tr>
+    {{ endloop: }}
+</table>
+
+<myapp-detail></myapp-detail>
+
+<style>
+</style>
