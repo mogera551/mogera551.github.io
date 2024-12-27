@@ -4,8 +4,15 @@ export class State {
     { name: 'Apple', price: 100 },
     { name: 'Banana', price: 200 },
     { name: 'Cherry', price: 300 },
-  ]
+  ];
+  get "fruits.*.priceIncludeTax"() {
+    const value = this["fruits.*.price"] * 1.1;
+    return isNaN(value) ? null : value;
+  }
   
+  $dependentProps = {
+    "fruits.*.priceIncludeTax": ["fruits.*.price"],
+  }
 }
 
 </script>
@@ -15,21 +22,24 @@ export class State {
     <col style="width: 100px;">
     <col style="width: 100px;">
     <col style="width: 100px;">
+    <col style="width: 100px;">
   </colgroup>
   <thead>
     <tr>
       <th>name</th>
       <th>price</th>
+      <th>price(include 10% tax)</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
     {{ loop:fruits }}
       <tr>
-        <td>{{ fruits.*.name }}</td>
-        <td>{{ fruits.*.price }}</td>
-        <td><button data-bind="target.name:  fruits.*.name;
-                               target.price: fruits.*.price;" popovertarget="detail">Detail</button></td>
+        <td class="left">{{ fruits.*.name }}</td>
+        <td class="right">{{ fruits.*.price|n.toLocaleString }}</td>
+        <td class="right">{{ fruits.*.priceIncludeTax|n.toLocaleString }}</td>
+        <td class="center"><button data-bind="target.name:  fruits.*.name;
+                                              target.price: fruits.*.price;" popovertarget="detail">Detail</button></td>
       </tr>
     {{ endloop: }}
 </table>
@@ -37,4 +47,13 @@ export class State {
 <myapp-detail id="detail" popover></myapp-detail>
 
 <style>
+.right {
+  text-align: right;
+}
+.left {
+  text-align: left;
+}
+.center {
+  text-align: center;
+}
 </style>
