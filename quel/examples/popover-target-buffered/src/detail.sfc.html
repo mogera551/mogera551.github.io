@@ -1,0 +1,37 @@
+<script type="module">
+export class State {
+  name;
+  price;
+  submit() {
+    this.$component.quelHidePopover();
+  }
+  cancel() {
+    this.$component.quelCancelPopover();
+  }
+}
+</script>
+
+<main>
+  <form data-bind="onsubmit|preventDefault:submit">
+    <table>
+      <colgroup>
+        <col style="width: 100px;">
+        <col style="width: 200px;">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>name</th>
+          <td><input type="text" data-bind="name"></td>
+        </tr>
+        <tr>
+          <th>price</th>
+          <td><input type="number" data-bind="value|number:price"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="center">
+      <button>OK</button>
+      <button type="button" data-bind="cancel">Cancel</button>
+    </div>
+  </form>
+</main>

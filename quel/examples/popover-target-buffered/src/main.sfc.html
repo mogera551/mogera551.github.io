@@ -1,10 +1,8 @@
 <script type="module">
+import { fruits } from "@app/fruits";
+
 export class State {
-  fruits = [
-    { name: 'Apple', price: 100 },
-    { name: 'Banana', price: 200 },
-    { name: 'Cherry', price: 300 },
-  ];
+  fruits = fruits;
   get "fruits.*.priceIncludeTax"() {
     const value = this["fruits.*.price"] * 1.1;
     return isNaN(value) ? null : value;
@@ -38,10 +36,12 @@ export class State {
         <td class="left">{{ fruits.*.name }}</td>
         <td class="right">{{ fruits.*.price|n.toLocaleString }}</td>
         <td class="right">{{ fruits.*.priceIncludeTax|n.toLocaleString }}</td>
-        <td class="center"><button data-bind="target.name:  fruits.*.name;
-                                              target.price: fruits.*.price;" popovertarget="detail">Detail</button></td>
+        <td class="center">
+          <button data-bind="target.name:  fruits.*.name;
+                             target.price: fruits.*.price;" popovertarget="edit">Edit</button>
+        </td>
       </tr>
     {{ endloop: }}
 </table>
 
-<myapp-detail id="detail" style="--adopted-css:base;" popover></myapp-detail>
+<myapp-detail id="edit" style="--adopted-css:base;" popover buffered-bind></myapp-detail>
