@@ -1,0 +1,36 @@
+<script type="module">
+export class State {
+  name;
+  price;
+}
+
+export const moduleConfig = {
+  extends: "dialog",
+}
+</script>
+
+<main>
+  <form method="dialog">
+    <table>
+      <colgroup>
+        <col style="width: 100px;">
+        <col style="width: 200px;">
+      </colgroup>
+      <tbody>
+        <tr>
+          <th>name</th>
+          <td><input type="text" data-bind="name"></td>
+        </tr>
+        <tr>
+          <th>price</th>
+          <td><input type="number" data-bind="value|number:price"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="center">
+      <button type="submit" value="ok">ok</button>
+      <button type="submit" value="">cancel</button>
+    </div>
+  </form>
+</main>
+  

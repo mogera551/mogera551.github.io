@@ -1,0 +1,72 @@
+<script type="module">
+import { fruits } from "@app/fruits";
+
+export class State {
+  fruits = fruits;
+  selectedIndex = -1;
+
+  get "fruits.*.priceIncludeTax"() {
+    const value = this["fruits.*.price"] * 1.1;
+    return isNaN(value) ? null : value;
+  }
+
+  get "fruits.*.selected"() {
+    return this.selectedIndex === this.$1;
+  }
+
+  selectRow(e, $1) {
+    if (this.selectedIndex === $1) {
+      this.selectedIndex = -1;
+      return;
+    }
+    this.selectedIndex = $1;
+  }
+
+  get selectedFruit() {
+    return this.fruits[this.selectedIndex] ?? {};
+  }
+  
+  $dependentProps = {
+    "fruits.*.priceIncludeTax": ["fruits.*.price"],
+    "fruits.*.selected": ["selectedIndex"],
+    "selectedFruit": ["selectedIndex", "fruits"],
+    "fruits.*.name": ["selectedFruit.name"],
+    "fruits.*.price": ["selectedFruit.price"],
+  }
+}
+
+</script>
+
+<table>
+  <colgroup>
+    <col style="width: 200px;">
+    <col style="width: 100px;">
+    <col style="width: 100px;">
+    <col style="width: 50px;">
+  </colgroup>
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>price</th>
+      <th>price(include 10% tax)</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{ loop:fruits }}
+      <tr data-bind="onclick:selectRow; class.selected:fruits.*.selected" >
+        <td class="left">{{ fruits.*.name }}</td>
+        <td class="right">{{ fruits.*.price|n.toLocaleString }}</td>
+        <td class="right">{{ fruits.*.priceIncludeTax|n.toLocaleString }}</td>
+        <td class="center">
+          <button command="show-modal" commandfor="myapp-dialog" data-bind="
+            commandfor.name:  fruits.*.name;
+            commandfor.price: fruits.*.price;
+          ">edit</button>
+        </td>
+      </tr>
+    {{ endloop: }}
+  </tbody>
+</table>
+
+<dialog is="myapp-dialog" id="myapp-dialog" style="--adopted-css:base;" buffered-bind></dialog>

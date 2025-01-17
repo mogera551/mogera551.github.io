@@ -2,14 +2,15 @@
 export class State {
   name;
   price;
-  close() {
-    this.$component.quelHidePopover();
-  }
+}
+
+export const moduleConfig = {
+  extends: "dialog",
 }
 </script>
 
 <main>
-  <form>
+  <form method="dialog">
     <table>
       <colgroup>
         <col style="width: 100px;">
@@ -27,7 +28,9 @@ export class State {
       </tbody>
     </table>
     <div class="center">
-      <button type="button" data-bind="close">Close</button>
+      <button type="submit" value="ok">ok</button>
+      <button type="submit" value="">cancel</button>
     </div>
   </form>
 </main>
+  

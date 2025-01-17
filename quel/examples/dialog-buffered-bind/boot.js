@@ -1,8 +1,9 @@
 import { config, registerSingleFileComponents as register } from "@quel";
 
 register({ 
-  "myapp-detail": "@app/detail",
+  "myapp-dialog": "@app/dialog",
   "myapp-main":   "@app/main",
 });
 
 config.useShadowRoot = true;
+config.useInvokerCommands = true;
