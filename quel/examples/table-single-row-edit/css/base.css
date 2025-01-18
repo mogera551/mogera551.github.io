@@ -1,0 +1,28 @@
+.right {
+  text-align: right;
+}
+.left {
+  text-align: left;
+}
+.center {
+  text-align: center;
+}
+::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.selected td {
+  background-color: #f0f0f0;
+}
+
+input[name="name"] {
+  width: calc(100% - 6px);
+}
+
+input[name="price"] {
+  width: calc(100% - 6px);
+  text-align: right;
+}
+
+table {
+  border-collapse: collapse;
+}

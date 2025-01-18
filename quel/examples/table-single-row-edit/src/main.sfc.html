@@ -1,0 +1,75 @@
+<script type="module">
+import { fruits } from "@app/fruits";
+
+export class State {
+  fruits = fruits;
+  editingRow = -1;
+
+  get "fruits.*.priceIncludeTax"() {
+    const value = this["fruits.*.price"] * 1.1;
+    return isNaN(value) ? null : value;
+  }
+
+  get "fruits.*.editing"() {
+    return this.editingRow === this.$1;
+  }
+
+  editRow(e, $1) {
+    this.editingRow = $1;
+  }
+
+  editFinish(e) {
+    this.editingRow = -1;
+  }
+
+  $dependentProps = {
+    "fruits.*.priceIncludeTax": ["fruits.*.price"],
+    "fruits.*.editing": ["editingRow"],
+  }
+}
+
+</script>
+
+<form data-bind="onsubmit|preventDefault:editFinish">
+  <table>
+    <colgroup>
+      <col style="width: 200px;">
+      <col style="width: 100px;">
+      <col style="width: 100px;">
+      <col style="width: 100px;">
+    </colgroup>
+    <thead>
+      <tr>
+        <th>name</th>
+        <th>price</th>
+        <th>price(include 10% tax)</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ loop:fruits }}
+        <tr data-bind="class.selected:fruits.*.editing" >
+          {{ if:fruits.*.editing }}
+            <td class="left">
+              <input type="text" name="name" data-bind="fruits.*.name">
+            </td>
+            <td class="right">
+              <input type="number" name="price" data-bind="value|number:fruits.*.price">
+            </td>
+            <td class="right">{{ fruits.*.priceIncludeTax|n.toLocaleString }}</td>
+            <td class="center">
+              <button type="submit">Finish</button>
+            </td>
+          {{ else: }}
+            <td class="left">{{ fruits.*.name }}</td>
+            <td class="right">{{ fruits.*.price|n.toLocaleString }}</td>
+            <td class="right">{{ fruits.*.priceIncludeTax|n.toLocaleString }}</td>
+            <td class="center">
+              <button type="button" data-bind="editRow">Edit</button>
+            </td>
+          {{ endif: }}
+        </tr>
+      {{ endloop: }}
+    </tbody>
+  </table>
+</form>
